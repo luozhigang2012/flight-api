@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,8 +41,9 @@ public class Booking {
     @Column(nullable = false, length = 20)
     private String reference;
     
-    @Column(nullable = false, length = 20)
-    private String status;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
     
     @Column(name = "booking_time", nullable = false)
     private LocalDateTime bookingTime;
