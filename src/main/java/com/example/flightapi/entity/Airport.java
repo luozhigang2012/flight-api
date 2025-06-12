@@ -20,7 +20,7 @@ public class Airport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "code", nullable = false, length = 10)
+    @Column(name = "code", nullable = false, length = 10, unique = true)
     private String code;
     
     @Column(nullable = false, length = 100)

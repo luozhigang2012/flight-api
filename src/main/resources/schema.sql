@@ -1,75 +1,70 @@
--- Hibernate: 
-    create table airport (
-        id bigint not null auto_increment,
-        city varchar(100) not null,
-        code varchar(10) not null,
-        name varchar(100) not null,
-        primary key (id)
-    ) engine=InnoDB
--- Hibernate: 
-    create table booking (
-        id bigint not null auto_increment,
-        booking_time datetime(6) not null,
-        reference varchar(20) not null,
-        status varchar(20) not null,
-        total_price decimal(10,2) not null,
-        flight_id bigint not null,
-        user_id bigint not null,
-        primary key (id)
-    ) engine=InnoDB
--- Hibernate: 
-    create table flight (
-        id bigint not null auto_increment,
-        departure_date date not null,
-        departure_time time(6) not null,
-        flight_number varchar(10) not null,
-        price decimal(10,2) not null,
-        departure_airport_id bigint not null,
-        destination_airport_id bigint not null,
-        primary key (id)
-    ) engine=InnoDB
--- Hibernate: 
-    create table passenger (
-        id bigint not null auto_increment,
-        email varchar(100) not null,
-        first_name varchar(50) not null,
-        last_name varchar(50) not null,
-        booking_id bigint not null,
-        primary key (id)
-    ) engine=InnoDB
--- Hibernate:
-    create table user (
-        id bigint not null auto_increment,
-        country varchar(100) not null,
-        email varchar(100) not null,
-        first_name varchar(50) not null,
-        last_name varchar(50) not null,
-        password varchar(255) not null,
-        phone varchar(20) not null,
-        primary key (id)
-    ) engine=InnoDB
--- Hibernate: 
-    alter table booking
-       add constraint FK546eybei9q7dsna94vryofrbr
-       foreign key (flight_id)
-       references flight (id)
--- Hibernate: 
-    alter table booking
-       add constraint FKkgseyy7t56x7lkjgu3wah5s3t
-       foreign key (user_id)
-       references user (id)
--- Hibernate: 
-    alter table flight
-       add constraint FKillsy04237nltbk2yryrbderb
-       foreign key (departure_airport_id)
-       references airport (id)
--- Hibernate: 
-    alter table flight
-       add constraint FK6uc5h994cl1g7yxsvnxkilqbl
-       foreign key (destination_airport_id)
-       references airport (id)
--- Hibernate: 
-    alter table passenger
-       add constraint FKtco0omesfld1qi5sw76eomvt4
-       foreign key (booking_id)
-       references booking (id)
+-- Tables must be dropped in this order: passenger->booking->user->flight->airport
+drop table flight_db.passenger;
+drop table flight_db.booking;
+drop table flight_db.`user`;
+drop table flight_db.flight;
+drop table flight_db.airport;
+
+-- Tables must be created in this order: airport->flight->user->booking->passenger
+CREATE TABLE IF NOT EXISTS `airport` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `city` varchar(100) NOT NULL,
+  `code` varchar(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UKkpeoje7ewxy99k1wt4cmttjgd` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `flight` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `departure_date` date NOT NULL,
+  `departure_time` time(6) NOT NULL,
+  `flight_number` varchar(10) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `departure_airport_id` bigint NOT NULL,
+  `destination_airport_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKillsy04237nltbk2yryrbderb` (`departure_airport_id`),
+  KEY `FK6uc5h994cl1g7yxsvnxkilqbl` (`destination_airport_id`),
+  CONSTRAINT `FK6uc5h994cl1g7yxsvnxkilqbl` FOREIGN KEY (`destination_airport_id`) REFERENCES `airport` (`id`),
+  CONSTRAINT `FKillsy04237nltbk2yryrbderb` FOREIGN KEY (`departure_airport_id`) REFERENCES `airport` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `country` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UKob8kqyqqgmefl0aco34akdtpe` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `booking` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `booking_time` datetime(6) NOT NULL,
+  `reference` varchar(20) NOT NULL,
+  `status` enum('PAST','UPCOMING') NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `flight_id` bigint NOT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK6qyxfsr6xbajdkhybqh1wse8d` (`reference`),
+  KEY `FK546eybei9q7dsna94vryofrbr` (`flight_id`),
+  KEY `FKkgseyy7t56x7lkjgu3wah5s3t` (`user_id`),
+  CONSTRAINT `FK546eybei9q7dsna94vryofrbr` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`id`),
+  CONSTRAINT `FKkgseyy7t56x7lkjgu3wah5s3t` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `passenger` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `booking_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKtco0omesfld1qi5sw76eomvt4` (`booking_id`),
+  CONSTRAINT `FKtco0omesfld1qi5sw76eomvt4` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

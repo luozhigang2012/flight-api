@@ -38,7 +38,7 @@ public class Booking {
     @JoinColumn(name = "flight_id", nullable = false)
     private Flight flight;
     
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String reference;
     
     @Column(nullable = false)

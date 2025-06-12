@@ -32,6 +32,11 @@ spring:
           lob:
             # 避免Hibernate的LOB创建警告
             non_contextual_creation: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
   # 服务器配置
   servlet:
     multipart:
