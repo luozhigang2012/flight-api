@@ -7,7 +7,7 @@ spring:
     name: flight-api
   # 数据源配置 (MySQL)
   datasource:
-    url: jdbc:mysql://localhost:3306/flight_db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/flight_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
