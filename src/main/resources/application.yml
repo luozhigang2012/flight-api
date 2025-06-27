@@ -27,49 +27,47 @@ spring:
       ddl-auto: update # 开发环境可以用update，生产环境应该用validate或none
     properties:
       hibernate:
-        format_sql: true
+        "[format_sql]": true
         jdbc:
           lob:
             # 避免Hibernate的LOB创建警告
-            non_contextual_creation: true
+            "[non_contextual_creation]": true
     defer-datasource-initialization: true
   sql:
     init:
       mode: always
       encoding: UTF-8
-  # 服务器配置
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-  # Redis配置 (可选)
-  # redis:
-  #   host: localhost
-  #   port: 6379
-  #   password:
-  #   timeout: 5000
 
-# 日志配置
+# 日志配置，输出到文件
 logging:
-  level:
-    root: INFO
-    org.springframework.web: DEBUG
-    com.example.myapp: DEBUG
   file:
     name: logs/application.log
+  level:
+    root: INFO
+    "[org.springframework.web]": INFO
+    "[com.example.flightapi]": DEBUG
   pattern:
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
 
 # 自定义配置
 app:
   api:
     version: v1
-    auth:
-      token-expiration: 86400 # 24小时
   cors:
     allowed-origins: "http://localhost:3000, http://127.0.0.1:3000"
     allowed-methods: "GET, POST, PUT, DELETE, OPTIONS"
     allowed-headers: "*"
+
+# JWT配置
+jwt:
+  # 密钥（从环境变量获取，如果不存在则使用默认值）
+  secret: ${JWT_SECRET:your_jwt_secret_key_here_change_in_production}
+  # 访问令牌过期时间：30分钟
+  access-token:
+    expiration: 1800000
+  # 刷新令牌过期时间：7天
+  refresh-token:
+    expiration: 604800000
 
 # Actuator配置 (生产环境需要更严格的security配置)
 management:
