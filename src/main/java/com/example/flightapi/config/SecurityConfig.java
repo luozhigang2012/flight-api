@@ -54,7 +54,15 @@ public class SecurityConfig {
             // 配置请求授权规则
             .authorizeHttpRequests(auth -> auth
                 // 公开的API端点，不需要认证
-                .requestMatchers("/api/auth/**", "/api/airports/**", "/api/flights/**", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
+                .requestMatchers(
+                    "/api/auth/**",
+                    "/api/airports/**",
+                    "/api/flights/**",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs.yaml",
+                    "/actuator/**"
+                ).permitAll()
                 // 所有其他请求需要认证
                 .anyRequest().authenticated()
             )

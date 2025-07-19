@@ -24,7 +24,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
-      ddl-auto: update # 开发环境可以用update，生产环境应该用validate或none
+      ddl-auto: none # 开发环境可以用update，生产环境应该用validate或none
     properties:
       hibernate:
         "[format_sql]": true
@@ -35,7 +35,7 @@ spring:
     defer-datasource-initialization: true
   sql:
     init:
-      mode: always
+      mode: never # always: 总是执行SQL初始化脚本
       encoding: UTF-8
 
 # 日志配置，输出到文件
