@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 /**
  * Spring Security配置类
@@ -49,6 +54,10 @@ public class SecurityConfig {
         http
             // 禁用CSRF保护，因为我们使用JWT作为唯一的安全凭证
             .csrf(csrf -> csrf.disable())
+            // 配置CORS，允许来自特定源的跨域请求
+            // 使用CorsConfigurationSource来定义CORS配置
+            // 允许来自http://localhost:3000的请求
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             // 配置无状态会话管理，因为JWT是自包含的
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // 配置请求授权规则
@@ -99,5 +108,28 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    /**
+     * 配置CORS
+     * <p>
+     * 定义了以下CORS配置：
+     * 1. 允许来自"http://localhost:3000"的请求
+     * 2. 允许所有HTTP方法（GET, POST, PUT, DELETE等）
+     * 3. 允许所有请求头
+     * </p>
+     *
+     * @return CorsConfigurationSource实例
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
