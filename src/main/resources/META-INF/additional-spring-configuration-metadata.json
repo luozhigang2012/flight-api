@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "app.api.version",
+      "type": "java.lang.String",
+      "description": "API version prefix for all endpoints."
+    },
+    {
+      "name": "app.cors.allowed-origins",
+      "type": "java.lang.String",
+      "description": "Comma-separated list of allowed origins for CORS."
+    },
+    {
+      "name": "app.cors.allowed-methods",
+      "type": "java.lang.String",
+      "description": "Comma-separated list of allowed HTTP methods for CORS."
+    },
+    {
+      "name": "app.cors.allowed-headers",
+      "type": "java.lang.String",
+      "description": "Comma-separated list of allowed HTTP headers for CORS."
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "JWT secret key used for signing tokens."
+    },
+    {
+      "name": "jwt.access-token.expiration",
+      "type": "java.lang.Long",
+      "description": "Expiration time for access tokens in milliseconds."
+    },
+    {
+      "name": "jwt.refresh-token.expiration",
+      "type": "java.lang.Long",
+      "description": "Expiration time for refresh tokens in milliseconds."
+    }
+  ]
+}

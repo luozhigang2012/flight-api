@@ -1,0 +1,15 @@
+# Configuration for OpenAPI documentation generation
+spring:
+  # Use H2 in-memory database to avoid real database connection during build
+  datasource:
+    url: jdbc:h2:mem:docsdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  # Disable JPA schema generation and SQL script execution
+  jpa:
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: never
