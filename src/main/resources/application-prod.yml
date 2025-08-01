@@ -1,0 +1,21 @@
+# src/main/resources/application-prod.yml
+
+spring:
+  datasource:
+    # 生产环境数据库的 JDBC URL
+    url: ${DB_URL:jdbc:mysql://your-production-db-host:3306/flight_db_prod}
+    # 生产环境数据库的用户名
+    username: ${DB_USERNAME:prod_user}
+    # 生产环境数据库的密码 (如您所说，暂时硬编码)
+    password: ${DB_PASSWORD:your_prod_db_password}
+
+# 其他生产环境特有的配置，例如日志级别等
+logging:
+  level:
+    "[com.example.flightapi]": INFO
+
+app:
+  cors:
+    # 优先从环境变量 FRONTEND_URL 获取值。
+    # 如果 FRONTEND_URL 未设置，则使用默认的生产环境 URL。
+    allowed-origins: ${FRONTEND_URL:https://your-production-frontend-domain.com}

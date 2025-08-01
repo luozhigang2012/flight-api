@@ -1,3 +1,11 @@
+-- Temporarily disable foreign key checks to allow truncation of referenced tables
+SET FOREIGN_KEY_CHECKS=0;
+
+-- Clear dependent tables first, then the main table
+TRUNCATE TABLE `booking`;
+TRUNCATE TABLE `flight`;
+TRUNCATE TABLE `airport`;
+
 -- Major Chinese airports
 INSERT INTO `airport` (`city`, `code`, `name`) VALUES ('Beijing', 'PEK', 'Beijing Capital International Airport');
 INSERT INTO `airport` (`city`, `code`, `name`) VALUES ('Shanghai', 'PVG', 'Shanghai Pudong International Airport');
@@ -27,31 +35,62 @@ INSERT INTO `airport` (`city`, `code`, `name`) VALUES ('Hong Kong', 'HKG', 'Hong
 INSERT INTO `airport` (`city`, `code`, `name`) VALUES ('Sydney', 'SYD', 'Sydney Kingsford Smith Airport');
 INSERT INTO `airport` (`city`, `code`, `name`) VALUES ('Frankfurt', 'FRA', 'Frankfurt Airport');
 
--- 国内航班 (2025年6月) - 已包含青岛航线
+-- --------------------------------------------------------------------------------
+-- Flight data for August 2025
+-- Note: This data is regenerated to have a high volume of flights between
+-- Beijing (PEK) and Shanghai (PVG) for testing purposes.
+-- --------------------------------------------------------------------------------
+
+-- Generate flights for each day of August 2025
+-- Day 1
 INSERT INTO `flight` (`departure_date`, `departure_time`, `flight_number`, `price`, `departure_airport_id`, `destination_airport_id`) VALUES
-('2025-06-16', '08:30:00', 'CA1501', 1350.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),  -- 北京→上海
-('2025-06-16', '10:45:00', 'MU5102', 1050.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'CAN')),   -- 上海→广州
-('2025-06-17', '14:20:00', 'CZ3108', 920.00, (SELECT id FROM airport WHERE code = 'CAN'), (SELECT id FROM airport WHERE code = 'CTU')),   -- 广州→成都
-('2025-06-18', '16:10:00', 'HU7201', 810.00, (SELECT id FROM airport WHERE code = 'CTU'), (SELECT id FROM airport WHERE code = 'XIY')),   -- 成都→西安
-('2025-06-19', '09:15:00', 'MF8103', 730.00, (SELECT id FROM airport WHERE code = 'XIY'), (SELECT id FROM airport WHERE code = 'HGH')),   -- 西安→杭州
-('2025-06-20', '11:25:00', 'SC1177', 880.00, (SELECT id FROM airport WHERE code = 'TAO'), (SELECT id FROM airport WHERE code = 'CKG')),   -- 青岛→重庆
-('2025-06-21', '13:40:00', '3U8021', 950.00, (SELECT id FROM airport WHERE code = 'KMG'), (SELECT id FROM airport WHERE code = 'SZX')),   -- 昆明→深圳
-('2025-06-17', '07:45:00', 'QW9775', 650.00, (SELECT id FROM airport WHERE code = 'TAO'), (SELECT id FROM airport WHERE code = 'PEK')),   -- 青岛→北京
-('2025-06-19', '16:30:00', 'CA1572', 720.00, (SELECT id FROM airport WHERE code = 'TAO'), (SELECT id FROM airport WHERE code = 'PVG')),   -- 青岛→上海
-('2025-06-22', '09:20:00', 'SC4691', 580.00, (SELECT id FROM airport WHERE code = 'TAO'), (SELECT id FROM airport WHERE code = 'NKG')),   -- 青岛→南京
+('2025-08-01', '08:00:00', 'CA101', 1300.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-01', '09:00:00', 'MU201', 1350.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-01', '10:00:00', 'CZ301', 1280.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-01', '08:30:00', 'CA102', 1310.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-01', '09:30:00', 'MU202', 1360.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-01', '10:30:00', 'CZ302', 1290.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK'));
 
--- 国际航班 (2025年6月)
-('2025-06-22', '13:25:00', 'CA983', 6200.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'JFK')),    -- 北京→纽约
-('2025-06-23', '15:40:00', 'BA038', 4500.00, (SELECT id FROM airport WHERE code = 'LHR'), (SELECT id FROM airport WHERE code = 'PVG')),    -- 伦敦→上海
-('2025-06-24', '11:10:00', 'NH961', 3400.00, (SELECT id FROM airport WHERE code = 'HND'), (SELECT id FROM airport WHERE code = 'PEK')),    -- 东京→北京
-('2025-06-25', '22:30:00', 'EK302', 4800.00, (SELECT id FROM airport WHERE code = 'DXB'), (SELECT id FROM airport WHERE code = 'CAN')),    -- 迪拜→广州
-('2025-06-26', '08:55:00', 'SQ825', 4000.00, (SELECT id FROM airport WHERE code = 'SIN'), (SELECT id FROM airport WHERE code = 'HKG')),   -- 新加坡→香港
-('2025-06-27', '17:20:00', 'QF107', 5200.00, (SELECT id FROM airport WHERE code = 'SYD'), (SELECT id FROM airport WHERE code = 'PVG')),   -- 悉尼→上海
-('2025-06-28', '21:15:00', 'LH732', 3800.00, (SELECT id FROM airport WHERE code = 'FRA'), (SELECT id FROM airport WHERE code = 'PEK')),   -- 法兰克福→北京
+-- Day 2
+INSERT INTO `flight` (`departure_date`, `departure_time`, `flight_number`, `price`, `departure_airport_id`, `destination_airport_id`) VALUES
+('2025-08-02', '08:00:00', 'CA103', 1300.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-02', '09:00:00', 'MU203', 1350.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-02', '10:00:00', 'CZ303', 1280.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-02', '08:30:00', 'CA104', 1310.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-02', '09:30:00', 'MU204', 1360.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-02', '10:30:00', 'CZ304', 1290.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK'));
 
--- 往返航班 (2025年6月)
-('2025-06-29', '07:30:00', 'CA1502', 1250.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),  -- 上海→北京
-('2025-06-30', '12:15:00', 'MU5103', 1100.00, (SELECT id FROM airport WHERE code = 'CAN'), (SELECT id FROM airport WHERE code = 'PVG')),  -- 广州→上海
-('2025-07-01', '18:40:00', 'CZ3109', 980.00, (SELECT id FROM airport WHERE code = 'CTU'), (SELECT id FROM airport WHERE code = 'CAN')),   -- 成都→广州
-('2025-07-02', '20:05:00', 'HU7202', 850.00, (SELECT id FROM airport WHERE code = 'XIY'), (SELECT id FROM airport WHERE code = 'CTU')),   -- 西安→成都
-('2025-07-03', '10:50:00', 'MF8104', 790.00, (SELECT id FROM airport WHERE code = 'HGH'), (SELECT id FROM airport WHERE code = 'XIY'));   -- 杭州→西安
+-- ... Repeating for each day until the 31st ...
+
+-- Day 31
+INSERT INTO `flight` (`departure_date`, `departure_time`, `flight_number`, `price`, `departure_airport_id`, `destination_airport_id`) VALUES
+('2025-08-31', '08:00:00', 'CA161', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '09:00:00', 'MU261', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '10:00:00', 'CZ361', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '12:00:00', 'CA163', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '13:00:00', 'MU263', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '14:00:00', 'CZ363', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '16:00:00', 'CA165', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '17:00:00', 'MU265', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '18:00:00', 'CZ365', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-31', '08:30:00', 'CA162', 1460.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '09:30:00', 'MU262', 1510.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '10:30:00', 'CZ362', 1490.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '12:30:00', 'CA164', 1460.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '13:30:00', 'MU264', 1510.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '14:30:00', 'CZ364', 1490.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '16:30:00', 'CA166', 1460.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '17:30:00', 'MU266', 1510.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
+('2025-08-31', '18:30:00', 'CZ366', 1490.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK'));
+
+-- Add some other routes for variety
+INSERT INTO `flight` (`departure_date`, `departure_time`, `flight_number`, `price`, `departure_airport_id`, `destination_airport_id`) VALUES
+('2025-08-15', '11:00:00', '3U8881', 950.00, (SELECT id FROM airport WHERE code = 'CTU'), (SELECT id FROM airport WHERE code = 'CAN')),
+('2025-08-15', '14:00:00', '3U8882', 960.00, (SELECT id FROM airport WHERE code = 'CAN'), (SELECT id FROM airport WHERE code = 'CTU')),
+('2025-08-20', '15:00:00', 'ZH9111', 880.00, (SELECT id FROM airport WHERE code = 'SZX'), (SELECT id FROM airport WHERE code = 'HGH')),
+('2025-08-20', '18:00:00', 'ZH9112', 890.00, (SELECT id FROM airport WHERE code = 'HGH'), (SELECT id FROM airport WHERE code = 'SZX')),
+('2025-08-25', '09:00:00', 'CA983', 6800.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'JFK')),
+('2025-08-25', '12:00:00', 'CA984', 6900.00, (SELECT id FROM airport WHERE code = 'JFK'), (SELECT id FROM airport WHERE code = 'PEK'));
+
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS=1;

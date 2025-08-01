@@ -54,7 +54,7 @@ app:
   api:
     version: v1
   cors:
-    allowed-origins: "http://localhost:3000, http://127.0.0.1:3000"
+    allowed-origins: "http://localhost:3000,http://127.0.0.1:3000"
     allowed-methods: "GET, POST, PUT, DELETE, OPTIONS"
     allowed-headers: "*"
 
@@ -109,3 +109,4 @@ management:
 # - `ddl-auto` 应该改为 `validate` 或 `none`
 # - 更严格的 Actuator 安全设置
 # - 禁用开发专用的调试选项
+

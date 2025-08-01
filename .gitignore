@@ -35,3 +35,6 @@ mvnw
 mvnw.cmd
 .mvn/wrapper/maven-wrapper.properties
 logs/application.log
+
+# Environment variables file
+.env
