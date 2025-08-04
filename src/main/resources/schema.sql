@@ -1,9 +1,9 @@
 -- Tables must be dropped in this order: passenger->booking->user->flight->airport
-drop table flight_db.passenger;
-drop table flight_db.booking;
-drop table flight_db.`user`;
-drop table flight_db.flight;
-drop table flight_db.airport;
+drop table IF EXISTS flight_db.passenger;
+drop table IF EXISTS flight_db.booking;
+drop table IF EXISTS flight_db.`user`;
+drop table IF EXISTS flight_db.flight;
+drop table IF EXISTS flight_db.airport;
 
 -- Tables must be created in this order: airport->flight->user->booking->passenger
 CREATE TABLE IF NOT EXISTS `airport` (

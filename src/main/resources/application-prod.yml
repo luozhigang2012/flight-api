@@ -18,4 +18,4 @@ app:
   cors:
     # 优先从环境变量 FRONTEND_URL 获取值。
     # 如果 FRONTEND_URL 未设置，则使用默认的生产环境 URL。
-    allowed-origins: ${FRONTEND_URL:https://your-production-frontend-domain.com}
+    allowed-origins: ${FRONTEND_URL:*}

@@ -62,17 +62,19 @@ INSERT INTO `flight` (`departure_date`, `departure_time`, `flight_number`, `pric
 
 -- ... Repeating for each day until the 31st ...
 
+-- Day 30
+INSERT INTO `flight` (`departure_date`, `departure_time`, `flight_number`, `price`, `departure_airport_id`, `destination_airport_id`) VALUES
+('2025-08-30', '08:00:00', 'CA161', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '09:00:00', 'MU261', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '10:00:00', 'CZ361', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '12:00:00', 'CA163', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '13:00:00', 'MU263', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '14:00:00', 'CZ363', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '16:00:00', 'CA165', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '17:00:00', 'MU265', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
+('2025-08-30', '18:00:00', 'CZ365', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG'));
 -- Day 31
 INSERT INTO `flight` (`departure_date`, `departure_time`, `flight_number`, `price`, `departure_airport_id`, `destination_airport_id`) VALUES
-('2025-08-31', '08:00:00', 'CA161', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '09:00:00', 'MU261', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '10:00:00', 'CZ361', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '12:00:00', 'CA163', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '13:00:00', 'MU263', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '14:00:00', 'CZ363', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '16:00:00', 'CA165', 1450.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '17:00:00', 'MU265', 1500.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
-('2025-08-31', '18:00:00', 'CZ365', 1480.00, (SELECT id FROM airport WHERE code = 'PEK'), (SELECT id FROM airport WHERE code = 'PVG')),
 ('2025-08-31', '08:30:00', 'CA162', 1460.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
 ('2025-08-31', '09:30:00', 'MU262', 1510.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
 ('2025-08-31', '10:30:00', 'CZ362', 1490.00, (SELECT id FROM airport WHERE code = 'PVG'), (SELECT id FROM airport WHERE code = 'PEK')),
